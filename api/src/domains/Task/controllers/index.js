@@ -6,6 +6,7 @@ const TaskService = require("../services/index");
 
 Router.post("/", async (req, res, next) => {
   try {
+    console.log(req.body);
     const product = await TaskService.create(req.body);
     res.status(httpsStatusCodes.ACCEPTED).send(product);
   } catch (error) {

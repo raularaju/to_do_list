@@ -13,6 +13,7 @@ const Task = database.define('Task', {
 
     title: {
         type: Sequelize.STRING,
+        unique: true,
         allowNull: false
     },
 

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import CreateTask from "../modals/createTask";
+import { createTask } from "../requests/Task";
+
 const TodoList = () => {
   const [modal, setModal] = useState(false);
 
@@ -12,8 +14,9 @@ const TodoList = () => {
   const saveTask = (taskObj) => {
     let tempList = taskList;
     tempList.push(taskObj);
-    setTaskList(tempList);
+    createTask(taskObj.title, taskObj.description, taskObj.dueDate);
     setModal(false);
+    setTaskList(tempList);
   };
 
   return (

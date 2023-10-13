@@ -21,21 +21,27 @@ export const getProductsById = async (id) => {
   }
 };
 
-export const createTask= async (title, description, dueDate) => {
-  const response = await api.post("/task/", {
-    title,
-    description,
-    due_date: dueDate,
-  });
-  return response;
+export const createTask = async (title, description, dueDate) => {
+  
+  try {
+    const response =  api.post("/task/", {
+      title,
+      description,
+      due_date: dueDate,
+    });
+    return response;
+  } catch (error) {
+    alert("ero")
+    console.log(error);
+  }
 };
 
 export const updateTask = async (id, title, description, dueDate, status) => {
-    const response = await api.put(`/task/${id}`, {
-        title,
-        description,
-        due_date: dueDate,
-        status,
-    });
+  const response = await api.put(`/task/${id}`, {
+    title,
+    description,
+    due_date: dueDate,
+    status,
+  });
   return response;
 };
