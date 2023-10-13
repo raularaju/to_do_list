@@ -26,6 +26,7 @@ const Task = database.define('Task', {
     },
     status: {
         type: Sequelize.ENUM('to_do', 'in_progress', 'done'),
+        defaultValue: 'to_do',
         allowNull: false   
     }
 
