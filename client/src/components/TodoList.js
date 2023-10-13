@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, {useEffect, useState } from "react";
 import CreateTask from "../modals/createTask";
-import { createTask } from "../requests/Task";
+import { createTask, getAllTasks } from "../requests/Task";
 
 const TodoList = () => {
   const [modal, setModal] = useState(false);
@@ -18,6 +18,17 @@ const TodoList = () => {
     setModal(false);
     setTaskList(tempList);
   };
+
+  useEffect(() => {
+    console.log("api url> ", process.env.REACT_APP_API_URL)
+    getAllTasks()
+      .then((response) => {
+        setTaskList(response.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching tasks:', error);
+      });
+  }, []);
 
   return (
     <>

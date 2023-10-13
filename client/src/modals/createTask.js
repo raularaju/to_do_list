@@ -46,11 +46,8 @@ const CreateTaskPopup = ({ modal, toggle, save}) => {
       </ModalBody>
       <ModalFooter>
         <Button color="primary" onClick={handleSave}>
-          Do Something
+          Criar Tarefa
         </Button>{" "}
-        <Button color="secondary" onClick={toggle}>
-          Cancel
-        </Button>
       </ModalFooter>
     </Modal>
   );

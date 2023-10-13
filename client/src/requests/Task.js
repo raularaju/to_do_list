@@ -22,16 +22,15 @@ export const getProductsById = async (id) => {
 };
 
 export const createTask = async (title, description, dueDate) => {
-  
   try {
-    const response =  api.post("/task/", {
+      const response = api.post("/task/", {
       title,
       description,
       due_date: dueDate,
     });
     return response;
   } catch (error) {
-    alert("ero")
+    alert("ero");
     console.log(error);
   }
 };
