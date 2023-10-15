@@ -21,13 +21,13 @@ const Task = database.define('Task', {
         type: Sequelize.TEXT,
         allowNull: false
     },
-    dueDate: {
-        type: Sequelize.DATEONLY,
+    category: {
+        type: Sequelize.ENUM('casa', 'trabalho', 'estudo', 'pessoal'),
         allowNull: false,
     },
     status: {
-        type: Sequelize.ENUM('to_do', 'in_progress', 'done'),
-        defaultValue: 'to_do',
+        type: Sequelize.ENUM('a_fazer', 'fazendo', 'feito'),
+        defaultValue: 'a_fazer',
         allowNull: false   
     }
 

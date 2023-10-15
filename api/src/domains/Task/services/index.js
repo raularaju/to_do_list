@@ -15,7 +15,6 @@ class TaskService {
     try {
       return await Task.create(body);
     } catch (error) {
-      console.log(error);
       throw new Error(error);
     }
   }

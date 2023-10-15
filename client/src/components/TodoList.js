@@ -1,67 +1,57 @@
-import React, {useEffect, useState } from "react";
-import CreateTask from "../modals/CreateTask";
-import { createTask, getAllTasks, deleteTask } from "../requests/Task";
-import Card from "./Card";
-const TodoList = () => {
-  const [modal, setModal] = useState(false);
+import React, { useState } from 'react';
+import TodoForm from './TodoForm';
+import Todo from './Todo';
 
-  const [taskList, setTaskList] = useState([]);
+function TodoList() {
+  const [todos, setTodos] = useState([]);
 
-  const toggle = () => {
-    setModal(!modal);
+  const addTodo = todo => {
+    if (!todo.text || /^\s*$/.test(todo.text)) {
+      return;
+    }
+
+    const newTodos = [todo, ...todos];
+
+    setTodos(newTodos);
+    console.log(...todos);
   };
 
-  const saveTask = async (taskObj) => {
-    let tempList = taskList;
-    const response = await createTask(taskObj);
-    tempList.push({...taskObj, id: response.data.id});
-    setModal(false);
-    setTaskList(tempList);
+  const updateTodo = (todoId, newValue) => {
+    if (!newValue.text || /^\s*$/.test(newValue.text)) {
+      return;
+    }
+
+    setTodos(prev => prev.map(item => (item.id === todoId ? newValue : item)));
   };
 
-  useEffect(() => {
-    getAllTasks()
-      .then((response) => {
-        setTaskList(response.data);
-      })
-      .catch((error) => {
-        console.error('Error fetching tasks:', error);
-      });
-  }, []);
+  const removeTodo = id => {
+    const removedArr = [...todos].filter(todo => todo.id !== id);
 
-  const handleDeleteTask = async (index) => {
-    let tempList = taskList;
-    const taskId = tempList[index].id;
-    tempList.splice(index, 1);
-    await deleteTask(taskId)
-    setTaskList(tempList);
-    window.location.reload()
-  }
+    setTodos(removedArr);
+  };
 
-  const updateListArray = (obj, index) => {
-    let tempList = taskList;
-    tempList[index] = obj;
-    setTaskList(tempList);
-    window.location.reload()
-  }
+  const completeTodo = id => {
+    let updatedTodos = todos.map(todo => {
+      if (todo.id === id) {
+        todo.isComplete = !todo.isComplete;
+      }
+      return todo;
+    });
+    setTodos(updatedTodos);
+  };
 
   return (
     <>
-      <div className="header text-center">
-        <h3>Gerenciador de Tarefas</h3>
-        <button className="btn btn-primary mt-2" onClick={() => setModal(true)}>
-          Adicionar
-        </button>
-      </div>
-      <div className="task-container">
-        {taskList && taskList.map((obj, index) => 
-          
-          <Card taskObj={obj} index={index} handleDeleteTask = {handleDeleteTask} updateListArray={updateListArray}/>
-        )}
-      </div>
-      <CreateTask toggle={toggle} modal={modal} save={saveTask} />
+      <h1>What's the Plan for Today?</h1>
+      <TodoForm onSubmit={addTodo} />
+      <Todo
+        todos={todos}
+        completeTodo={completeTodo}
+        removeTodo={removeTodo}
+        updateTodo={updateTodo}
+      />
     </>
   );
-};
+}
 
 export default TodoList;
