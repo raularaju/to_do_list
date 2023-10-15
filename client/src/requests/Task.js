@@ -5,7 +5,7 @@ export const getAllTasks = async () => {
     const response = await api.get("/task/");
     return response;
   } catch (error) {
-    console.error("Erro ao retornar tarefas:", error);
+    console.error("Error while fetching tasks:", error);
     throw error;
   }
 };
@@ -16,31 +16,36 @@ export const getProductsById = async (id) => {
     console.log(response);
     return response;
   } catch (error) {
-    console.error("Tarefa não encontrada:", error);
+    console.error("Task not found:", error);
     throw error;
   }
 };
 
-export const createTask = async (title, description, dueDate) => {
+export const createTask = async (taskObj) => {
   try {
-      const response = api.post("/task/", {
-      title,
-      description,
-      due_date: dueDate,
-    });
+    delete taskObj.id;
+    const response = api.post("/task/", taskObj);
     return response;
   } catch (error) {
-    alert("ero");
-    console.log(error);
+    throw error;
   }
 };
 
-export const updateTask = async (id, title, description, dueDate, status) => {
-  const response = await api.put(`/task/${id}`, {
-    title,
-    description,
-    due_date: dueDate,
-    status,
-  });
-  return response;
+export const updateTask = async (taskObj, id) => {
+  try {
+    delete taskObj.id;
+    const response = await api.put(`/task/${id}`, taskObj);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteTask = async (id) => {
+  try {
+    const response = await api.delete(`/task/${id}`);
+    return response;
+  } catch (error) {
+    throw error;
+  }
 };

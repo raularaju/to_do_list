@@ -21,7 +21,7 @@ const Task = database.define('Task', {
         type: Sequelize.TEXT,
         allowNull: false
     },
-    due_date: {
+    dueDate: {
         type: Sequelize.DATEONLY,
         allowNull: false,
     },

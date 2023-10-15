@@ -1,7 +1,7 @@
 import React, {useEffect, useState } from "react";
-import CreateTask from "../modals/createTask";
-import { createTask, getAllTasks } from "../requests/Task";
-
+import CreateTask from "../modals/CreateTask";
+import { createTask, getAllTasks, deleteTask } from "../requests/Task";
+import Card from "./Card";
 const TodoList = () => {
   const [modal, setModal] = useState(false);
 
@@ -11,16 +11,15 @@ const TodoList = () => {
     setModal(!modal);
   };
 
-  const saveTask = (taskObj) => {
+  const saveTask = async (taskObj) => {
     let tempList = taskList;
-    tempList.push(taskObj);
-    createTask(taskObj.title, taskObj.description, taskObj.dueDate);
+    const response = await createTask(taskObj);
+    tempList.push({...taskObj, id: response.data.id});
     setModal(false);
     setTaskList(tempList);
   };
 
   useEffect(() => {
-    console.log("api url> ", process.env.REACT_APP_API_URL)
     getAllTasks()
       .then((response) => {
         setTaskList(response.data);
@@ -29,6 +28,22 @@ const TodoList = () => {
         console.error('Error fetching tasks:', error);
       });
   }, []);
+
+  const handleDeleteTask = async (index) => {
+    let tempList = taskList;
+    const taskId = tempList[index].id;
+    tempList.splice(index, 1);
+    await deleteTask(taskId)
+    setTaskList(tempList);
+    window.location.reload()
+  }
+
+  const updateListArray = (obj, index) => {
+    let tempList = taskList;
+    tempList[index] = obj;
+    setTaskList(tempList);
+    window.location.reload()
+  }
 
   return (
     <>
@@ -39,9 +54,10 @@ const TodoList = () => {
         </button>
       </div>
       <div className="task-container">
-        {taskList.map((obj) => (
-          <li>{obj.title}</li>
-        ))}
+        {taskList && taskList.map((obj, index) => 
+          
+          <Card taskObj={obj} index={index} handleDeleteTask = {handleDeleteTask} updateListArray={updateListArray}/>
+        )}
       </div>
       <CreateTask toggle={toggle} modal={modal} save={saveTask} />
     </>
