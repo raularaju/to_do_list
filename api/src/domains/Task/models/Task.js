@@ -19,10 +19,11 @@ const Task = database.define('Task', {
 
     description: {
         type: Sequelize.TEXT,
-        allowNull: false
+        allowNull: true
     },
     category: {
-        type: Sequelize.ENUM('casa', 'trabalho', 'estudo', 'pessoal'),
+        type: Sequelize.ENUM('casa', 'trabalho', 'estudo', 'pessoal', 'outros'),
+        defaultValue: 'outros',
         allowNull: false,
     },
     status: {

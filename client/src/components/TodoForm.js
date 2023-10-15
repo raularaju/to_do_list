@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { createTask } from '../requests/Task';
 
 function TodoForm(props) {
-  const [input, setInput] = useState(props.edit ? props.edit.value : '');
+  const [titleInput, setTitleInput] = useState(props.edit ? props.edit.value : '');
 
   const inputRef = useRef(null);
 
@@ -10,17 +11,17 @@ function TodoForm(props) {
   });
 
   const handleChange = e => {
-    setInput(e.target.value);
+    setTitleInput(e.target.value);
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
+    const response = await createTask({title: titleInput})
     props.onSubmit({
-      id: Math.floor(Math.random() * 10000),
-      text: input
+      title: titleInput,
+      id: response.data.id
     });
-    setInput('');
+    setTitleInput('');
   };
 
   return (
@@ -29,9 +30,9 @@ function TodoForm(props) {
         <>
           <input
             placeholder='Update your item'
-            value={input}
+            value={titleInput}
             onChange={handleChange}
-            name='text'
+            name='title'
             ref={inputRef}
             className='todo-input edit'
           />
@@ -43,9 +44,9 @@ function TodoForm(props) {
         <>
           <input
             placeholder='Add a todo'
-            value={input}
+            value={titleInput}
             onChange={handleChange}
-            name='text'
+            name='title'
             className='todo-input'
             ref={inputRef}
           />

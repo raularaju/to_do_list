@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
-import TodoForm from './TodoForm';
-import Todo from './Todo';
-
+import React, { useState } from "react";
+import TodoForm from "./TodoForm";
+import Todo from "./Todo";
+import { deleteTask, updateTask } from "../requests/Task";
 function TodoList() {
   const [todos, setTodos] = useState([]);
 
-  const addTodo = todo => {
-    if (!todo.text || /^\s*$/.test(todo.text)) {
+  const addTodo = async (todo) => {
+    if (!todo.title || /^\s*$/.test(todo.title)) {
       return;
     }
-
     const newTodos = [todo, ...todos];
 
     setTodos(newTodos);
@@ -17,23 +16,28 @@ function TodoList() {
   };
 
   const updateTodo = (todoId, newValue) => {
-    if (!newValue.text || /^\s*$/.test(newValue.text)) {
+    if (!newValue.title || /^\s*$/.test(newValue.title)) {
       return;
     }
 
-    setTodos(prev => prev.map(item => (item.id === todoId ? newValue : item)));
+    setTodos((prev) =>
+      prev.map((item) => (item.id === todoId ? newValue : item))
+    );
   };
 
-  const removeTodo = id => {
-    const removedArr = [...todos].filter(todo => todo.id !== id);
+  const removeTodo = async (id) => {
+    await deleteTask(id);
+    const removedArr = [...todos].filter((todo) => todo.id !== id);
 
     setTodos(removedArr);
   };
 
-  const completeTodo = id => {
-    let updatedTodos = todos.map(todo => {
+  const completeTodo = async (id) => {
+    let updatedTodos = todos.map(async (todo) => {
       if (todo.id === id) {
         todo.isComplete = !todo.isComplete;
+        console.log(id);
+        await updateTask({ status: "feito" }, id);
       }
       return todo;
     });

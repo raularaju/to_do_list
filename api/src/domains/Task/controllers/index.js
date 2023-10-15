@@ -10,6 +10,7 @@ Router.post("/", async (req, res, next) => {
     const product = await TaskService.create(req.body);
     res.status(httpsStatusCodes.ACCEPTED).send(product);
   } catch (error) {
+    console.log(error);
     next(error);
   }
 });
@@ -19,6 +20,7 @@ Router.put("/:id", async (req, res, next) => {
     await TaskService.update(req.params.id, req.body);
     res.status(httpsStatusCodes.ACCEPTED).send("Tarefa atualizada com sucesso");
   } catch (error) {
+    console.log(error)
     next(error);
   }
 });
