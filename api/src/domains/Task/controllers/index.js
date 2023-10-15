@@ -3,12 +3,10 @@ const httpsStatusCodes = require("../../../utils/constants/httpStatusCodes");
 const Task = require("../models/Task");
 const TaskService = require("../services/index");
 
-
 Router.post("/", async (req, res, next) => {
   try {
-    console.log(req.body);
-    const product = await TaskService.create(req.body);
-    res.status(httpsStatusCodes.ACCEPTED).send(product);
+    const task = await TaskService.create(req.body);
+    res.status(httpsStatusCodes.ACCEPTED).send(task);
   } catch (error) {
     console.log(error);
     next(error);
@@ -16,19 +14,20 @@ Router.post("/", async (req, res, next) => {
 });
 
 Router.put("/:id", async (req, res, next) => {
+  console.log("ai")
   try {
-    await TaskService.update(req.params.id, req.body);
-    res.status(httpsStatusCodes.ACCEPTED).send("Tarefa atualizada com sucesso");
+    const task = await TaskService.update(req.params.id, req.body);
+    res.status(httpsStatusCodes.ACCEPTED).send(task);
   } catch (error) {
-    console.log(error)
+    //console.log(error);
     next(error);
   }
 });
 
 Router.get("/", async (req, res, next) => {
   try {
-    all_products = await TaskService.getall();
-    res.status(httpsStatusCodes.ACCEPTED).send(all_products);
+    all_tasks = await TaskService.getall();
+    res.status(httpsStatusCodes.ACCEPTED).send(all_tasks);
   } catch (error) {
     next(error);
   }
@@ -44,12 +43,13 @@ Router.get("/:id", async (req, res, next) => {
 });
 
 Router.delete("/:id", async (req, res, next) => {
-    try {
-        await TaskService.delete(req.params.id);
-        res.status(httpsStatusCodes.ACCEPTED).send("Tarefa deletada com sucesso");
-    } catch (error) {
-        next(error);
-    }
+  try {
+    await TaskService.delete(req.params.id);
+    res.status(httpsStatusCodes.ACCEPTED).send("Tarefa deletada com sucesso");
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
 });
 
 // Router.get('/:name', async (req, res, next) => {

@@ -1,31 +1,48 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TodoForm from "./TodoForm";
 import Todo from "./Todo";
-import { deleteTask, updateTask } from "../requests/Task";
+import { deleteTask, updateTask, createTask, getAllTasks } from "../requests/Task";
 function TodoList() {
   const [todos, setTodos] = useState([]);
+
+  useEffect(() => {
+    async function fetchTasks() {
+      try {
+        const response = await getAllTasks(); // Assuming getAllTasks returns a list of tasks
+        setTodos(response.data); // Assuming the tasks are stored in response.data
+      } catch (error) {
+        // Handle any errors here
+        console.error("Error loading tasks:", error);
+      }
+    }
+  
+    fetchTasks(); // Call the async function
+  }, []);
+  
 
   const addTodo = async (todo) => {
     if (!todo.title || /^\s*$/.test(todo.title)) {
       return;
     }
-    const newTodos = [todo, ...todos];
+    const response = await createTask({ title: todo.title });
+
+    const newTodos = [{ ...todo, id: response.data.id }, ...todos];
 
     setTodos(newTodos);
-    console.log(...todos);
+    console.log("add ", todos);
   };
 
-  const updateTodo = (todoId, newValue) => {
+  const updateTodo = async (todoId, newValue) => {
     if (!newValue.title || /^\s*$/.test(newValue.title)) {
       return;
     }
-
-    setTodos((prev) =>
-      prev.map((item) => (item.id === todoId ? newValue : item))
-    );
+    const response = await updateTask({ title: newValue.title }, todoId);
+    newValue = {...newValue, id: response.data.id}
+    setTodos(prev => prev.map(item => (item.id === todoId ? newValue : item)));
   };
 
   const removeTodo = async (id) => {
+    console.log("removeTodo", id)
     await deleteTask(id);
     const removedArr = [...todos].filter((todo) => todo.id !== id);
 
@@ -33,14 +50,13 @@ function TodoList() {
   };
 
   const completeTodo = async (id) => {
-    let updatedTodos = todos.map(async (todo) => {
-      if (todo.id === id) {
+    let updatedTodos = [...todos];
+    for (let todo of updatedTodos) {
+      if(todo.id === id) {
         todo.isComplete = !todo.isComplete;
-        console.log(id);
-        await updateTask({ status: "feito" }, id);
+        await updateTask({isComplete: todo.isComplete}, todo.id);
       }
-      return todo;
-    });
+    }
     setTodos(updatedTodos);
   };
 

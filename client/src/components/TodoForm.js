@@ -16,10 +16,8 @@ function TodoForm(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await createTask({title: titleInput})
     props.onSubmit({
       title: titleInput,
-      id: response.data.id
     });
     setTitleInput('');
   };

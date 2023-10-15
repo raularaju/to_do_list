@@ -29,6 +29,7 @@ class TaskService {
     if (task) {
       task.set(body);
       await task.save();
+      return task;
     } else {
       throw new QueryError("Tarefa não encontrada");
     }

@@ -26,9 +26,9 @@ const Task = database.define('Task', {
         defaultValue: 'outros',
         allowNull: false,
     },
-    status: {
-        type: Sequelize.ENUM('a_fazer', 'fazendo', 'feito'),
-        defaultValue: 'a_fazer',
+    isComplete: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
         allowNull: false   
     }
 
