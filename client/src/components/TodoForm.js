@@ -1,8 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { createTask } from '../requests/Task';
+import React, { useState, useEffect, useRef } from "react";
 
 function TodoForm(props) {
-  const [titleInput, setTitleInput] = useState(props.edit ? props.edit.value : '');
+  const [titleInput, setTitleInput] = useState(
+    props.edit ? props.edit.value : ""
+  );
+  const [categoryInput, setCategoryInput] = useState(
+    props.edit ? props.edit.value : ""
+  );
 
   const inputRef = useRef(null);
 
@@ -10,47 +14,57 @@ function TodoForm(props) {
     inputRef.current.focus();
   });
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setTitleInput(e.target.value);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(! titleInput || ! categoryInput) return;
     props.onSubmit({
       title: titleInput,
+      category: categoryInput,
     });
-    setTitleInput('');
+    setTitleInput("");
   };
 
   return (
-    <form onSubmit={handleSubmit} className='todo-form'>
+    <form onSubmit={handleSubmit} className="todo-form">
       {props.edit ? (
         <>
           <input
-            placeholder='Update your item'
+            placeholder="Nome da tarefa"
             value={titleInput}
             onChange={handleChange}
-            name='title'
+            name="title"
             ref={inputRef}
-            className='todo-input edit'
+            className="todo-input edit"
           />
-          <button onClick={handleSubmit} className='todo-button edit'>
+          <button onClick={handleSubmit} className="todo-button">
             Update
           </button>
         </>
       ) : (
         <>
           <input
-            placeholder='Add a todo'
+            placeholder="Nome da tarefa"
             value={titleInput}
-            onChange={handleChange}
-            name='title'
-            className='todo-input'
+            onChange={(e) => setTitleInput(e.target.value)}
+            name="title"
+            className="todo-input"
             ref={inputRef}
           />
-          <button onClick={handleSubmit} className='todo-button'>
-            Add todo
+          <button onClick={handleSubmit} className="todo-button">
+            Adicionar
           </button>
+          <select className="todo-select"  style={{ marginTop: '20px' }} onChange={(e) => setCategoryInput(e.target.value)}>
+            <option value=""> Selecione uma categoria</option>
+            <option value="Trabaho"> Trabaho </option>
+            <option value="Pessoal"> Pessoal </option>
+            <option value="Casa"> Casa </option>
+            <option value="Estudo"> Estudo </option>
+            <option value="Outros"> Outros </option>
+          </select>
         </>
       )}
     </form>
