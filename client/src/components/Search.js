@@ -3,6 +3,7 @@ import React from "react";
 const Search = ({ search, setSearch }) => {
   return (
     <div className="search">
+      <h2>Busca</h2>
       <input
         type="text"
         value={search}

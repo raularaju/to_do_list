@@ -14,7 +14,6 @@ Router.post("/", async (req, res, next) => {
 });
 
 Router.put("/:id", async (req, res, next) => {
-  console.log("ai")
   try {
     const task = await TaskService.update(req.params.id, req.body);
     res.status(httpsStatusCodes.ACCEPTED).send(task);

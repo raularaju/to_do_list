@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import TodoForm from "./TodoForm";
 import Todo from "./Todo";
+import Filter from "./Filter";
 import {
   deleteTask,
   updateTask,
@@ -11,22 +12,26 @@ import Search from "./Search";
 function TodoList() {
   const [todos, setTodos] = useState([]);
   const [search, setSearch] = useState("");
+  const [filterStatus, setFilterStatus] = useState("all"); // ["all", "completed", "uncompleted"
+  const [filterCategory, setFilterCategory] = useState("all"); // ["all", "Trabalho", "Pessoal", "Casa", "Estudo", "Outros"]
   const [isCreatingTask, setIsCreatingTask] = useState(true);
+  
   useEffect(() => {
     async function fetchTasks() {
       try {
-        const response = await getAllTasks(); // Assuming getAllTasks returns a list of tasks
-        setTodos(response.data); // Assuming the tasks are stored in response.data
+        const response = await getAllTasks();
+        setTodos(response.data); 
       } catch (error) {
-        // Handle any errors here
         console.error("Error loading tasks:", error);
       }
     }
 
-    fetchTasks(); // Call the async function
+    fetchTasks(); 
   }, []);
 
   const toggleCreateTaskMode = () => {
+    setFilterCategory("all")
+    setFilterStatus("all")
     setIsCreatingTask(!isCreatingTask);
   };
 
@@ -42,14 +47,13 @@ function TodoList() {
     const newTodos = [{ ...todo, id: response.data.id }, ...todos];
 
     setTodos(newTodos);
-    console.log("add ", todos);
   };
 
   const updateTodo = async (todoId, newValue) => {
     if (!newValue.title || /^\s*$/.test(newValue.title)) {
       return;
     }
-    const response = await updateTask({ title: newValue.title }, todoId);
+    const response = await updateTask({ title: newValue.title, category: newValue.category }, todoId);
     newValue = { ...newValue, id: response.data.id };
     setTodos((prev) =>
       prev.map((item) => (item.id === todoId ? newValue : item))
@@ -57,7 +61,6 @@ function TodoList() {
   };
 
   const removeTodo = async (id) => {
-    console.log("removeTodo", id);
     await deleteTask(id);
     const removedArr = [...todos].filter((todo) => todo.id !== id);
 
@@ -84,11 +87,17 @@ function TodoList() {
       {isCreatingTask ? (
         <TodoForm onSubmit={addTodo} />
       ) : (
+        <>
         <Search search={search} setSearch={setSearch} />
+        <Filter filterStatus={filterStatus} setFilterStatus={setFilterStatus} filterCategory={filterCategory} setFilterCategory={setFilterCategory}  />
+        </>
       )}
 
       <Todo
-        todos={todos.filter((todo) =>
+        todos={todos
+          .filter((todo) => filterStatus === "all" ? true : filterStatus === "completed" ? todo.isComplete : !todo.isComplete)
+          .filter((todo) => filterCategory === "all" ? true : todo.category === filterCategory)
+          .filter((todo) =>
           todo.title.toLowerCase().includes(search.toLowerCase())
         )}
         completeTodo={completeTodo}

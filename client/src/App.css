@@ -59,6 +59,7 @@ h1 {
   width: 320px;
   background: transparent;
   color: #fff;
+  margin-top: 20px;
 }
 
 .todo-input::placeholder {
@@ -81,6 +82,10 @@ h1 {
 }
 
 .todo-input.edit {
+  border: 2px solid #149fff;
+}
+
+.todo-select.edit {
   border: 2px solid #149fff;
 }
 
@@ -187,7 +192,7 @@ h1 {
 .search {
   background: #161a2b; /* Background color */
   padding: 10px;
-  margin-bottom: 16px;
+  margin-bottom: 2px;
 }
 
 
@@ -206,4 +211,51 @@ h1 {
 
 .search input:focus {
   border: 2px solid #7c3dff;
+}
+
+h2 {
+  color: #fff;
+  font-size: 18px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.filter {
+  background: #161a2b;
+  padding: 10px;
+  margin-bottom: 20px;
+  align-self: center;
+}
+
+.filter-options {
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  gap: 3rem;
+}
+
+.filter-options div {
+  flex: 1;
+  display: flex; 
+  justify-content: center;
+  align-items: center; 
+}
+
+.filter select {
+  height: 40px;
+  padding: 10px;
+  border: 2px solid #5d0cff;
+  border-radius: 4px;
+  background: transparent;
+  color: #fff;
+  margin-right: 10px; 
+}
+
+.filter p {
+  font-size: 16px;
+  color: #fff;
+  margin-right: 8px;
+  display: flex;
+  align-items: center;
+  height: 40px; 
 }

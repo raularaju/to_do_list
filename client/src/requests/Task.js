@@ -13,7 +13,6 @@ export const getAllTasks = async () => {
 export const getProductsById = async (id) => {
   try {
     const response = await api.get(`/task/${id}`);
-    console.log(response);
     return response;
   } catch (error) {
     console.error("Task not found:", error);
