@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const database = require('../../../../database/index');
+const User = require('../../User/models/User');
 
 const Task = database.define('Task', {
 
@@ -34,6 +35,14 @@ const Task = database.define('Task', {
 
 });
 
+User.hasMany(Task, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+    foreignKey: {
+        allowNull: false
+    }
+});
+Task.belongsTo(User);
 
 
 module.exports = Task;

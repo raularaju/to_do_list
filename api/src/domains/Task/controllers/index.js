@@ -1,9 +1,10 @@
 const Router = require("express").Router();
+const { jwtMiddleware } = require("../../../middlewares/auth");
 const httpsStatusCodes = require("../../../utils/constants/httpStatusCodes");
 const Task = require("../models/Task");
 const TaskService = require("../services/index");
 
-Router.post("/", async (req, res, next) => {
+Router.post("/", jwtMiddleware, async (req, res, next) => {
   try {
     const task = await TaskService.create(req.body);
     res.status(httpsStatusCodes.ACCEPTED).send(task);
@@ -13,17 +14,16 @@ Router.post("/", async (req, res, next) => {
   }
 });
 
-Router.put("/:id", async (req, res, next) => {
+Router.put("/:id", jwtMiddleware, async (req, res, next) => {
   try {
     const task = await TaskService.update(req.params.id, req.body);
     res.status(httpsStatusCodes.ACCEPTED).send(task);
   } catch (error) {
-    //console.log(error);
     next(error);
   }
 });
 
-Router.get("/", async (req, res, next) => {
+Router.get("/", jwtMiddleware, async (req, res, next) => {
   try {
     all_tasks = await TaskService.getall();
     res.status(httpsStatusCodes.ACCEPTED).send(all_tasks);
@@ -32,7 +32,7 @@ Router.get("/", async (req, res, next) => {
   }
 });
 
-Router.get("/:id", async (req, res, next) => {
+Router.get("/:id", jwtMiddleware, async (req, res, next) => {
   try {
     const product = await TaskService.getById(req.params.id);
     res.status(httpsStatusCodes.ACCEPTED).send(product);
