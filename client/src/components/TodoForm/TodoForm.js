@@ -11,6 +11,7 @@ function TodoForm(props) {
   const inputRef = useRef(null);
 
   useEffect(() => {
+    console.log(props.edit);
     inputRef.current.focus();
   });
 
@@ -27,12 +28,12 @@ function TodoForm(props) {
     });
     setTitleInput("");
   };
-
   return (
     <form onSubmit={handleSubmit} className="todo-form">
       {props.edit ? (
         <>
-          <input
+
+          <input  
             className="todo-input edit"
             placeholder="Nome da tarefa"
             value={titleInput}
@@ -48,7 +49,6 @@ function TodoForm(props) {
             onChange={(e) => setCategoryInput(e.target.value)}
             value={categoryInput}
           >
-            <option value=""> Selecione uma categoria</option>
             <option value="Trabalho"> Trabaho </option>
             <option value="Pessoal"> Pessoal </option>
             <option value="Casa"> Casa </option>

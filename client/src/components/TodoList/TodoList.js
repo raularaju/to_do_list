@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
-import TodoForm from "./TodoForm";
-import Todo from "./Todo";
-import Filter from "./Filter";
+import "./TodoList.css";
+import TodoForm from "../TodoForm/TodoForm";
+import Todo from "../Todo/Todo";
+import Filter from "../Filter/Filter";
 import {
   deleteTask,
   updateTask,
   createTask,
   getAllTasks,
-} from "../requests/Task";
-import Search from "./Search";
+} from "../../requests/Task";
+import Search from "../Search/Search";
 function TodoList() {
   const [todos, setTodos] = useState([]);
   const [search, setSearch] = useState("");
@@ -81,7 +82,7 @@ function TodoList() {
     setTodos(updatedTodos);
   };
   return (
-    <>
+    <div className="todo-list-container">
       <h1>Gerenciador de Tarefas</h1>
       <button onClick={toggleCreateTaskMode} className="toggle-button">
         {isCreatingTask ? "Pesquisar tarefas" : "Criar tarefas"}
@@ -120,7 +121,7 @@ function TodoList() {
         removeTodo={removeTodo}
         updateTodo={updateTodo}
       />
-    </>
+    </div>
   );
 }
 

@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css';
-import TodoList from './components/TodoList';
-
+//import TodoList from './components/TodoList/TodoList';
+import LoginSignup from './components/LoginSignup/LoginSignup';
 
 function App() {
   return (
-    <div className='todo-app'>
-      <TodoList />
+    <div className='main-page'>
+      <LoginSignup/>
     </div>
   );
 }
