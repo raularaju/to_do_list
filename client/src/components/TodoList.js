@@ -15,23 +15,23 @@ function TodoList() {
   const [filterStatus, setFilterStatus] = useState("all"); // ["all", "completed", "uncompleted"
   const [filterCategory, setFilterCategory] = useState("all"); // ["all", "Trabalho", "Pessoal", "Casa", "Estudo", "Outros"]
   const [isCreatingTask, setIsCreatingTask] = useState(true);
-  
+
   useEffect(() => {
     async function fetchTasks() {
       try {
         const response = await getAllTasks();
-        setTodos(response.data); 
+        setTodos(response.data);
       } catch (error) {
         console.error("Error loading tasks:", error);
       }
     }
 
-    fetchTasks(); 
+    fetchTasks();
   }, []);
 
   const toggleCreateTaskMode = () => {
-    setFilterCategory("all")
-    setFilterStatus("all")
+    setFilterCategory("all");
+    setFilterStatus("all");
     setIsCreatingTask(!isCreatingTask);
   };
 
@@ -53,7 +53,10 @@ function TodoList() {
     if (!newValue.title || /^\s*$/.test(newValue.title)) {
       return;
     }
-    const response = await updateTask({ title: newValue.title, category: newValue.category }, todoId);
+    const response = await updateTask(
+      { title: newValue.title, category: newValue.category },
+      todoId
+    );
     newValue = { ...newValue, id: response.data.id };
     setTodos((prev) =>
       prev.map((item) => (item.id === todoId ? newValue : item))
@@ -88,18 +91,31 @@ function TodoList() {
         <TodoForm onSubmit={addTodo} />
       ) : (
         <>
-        <Search search={search} setSearch={setSearch} />
-        <Filter filterStatus={filterStatus} setFilterStatus={setFilterStatus} filterCategory={filterCategory} setFilterCategory={setFilterCategory}  />
+          <Search search={search} setSearch={setSearch} />
+          <Filter
+            filterStatus={filterStatus}
+            setFilterStatus={setFilterStatus}
+            filterCategory={filterCategory}
+            setFilterCategory={setFilterCategory}
+          />
         </>
       )}
 
       <Todo
         todos={todos
-          .filter((todo) => filterStatus === "all" ? true : filterStatus === "completed" ? todo.isComplete : !todo.isComplete)
-          .filter((todo) => filterCategory === "all" ? true : todo.category === filterCategory)
           .filter((todo) =>
-          todo.title.toLowerCase().includes(search.toLowerCase())
-        )}
+            filterStatus === "all"
+              ? true
+              : filterStatus === "completed"
+              ? todo.isComplete
+              : !todo.isComplete
+          )
+          .filter((todo) =>
+            filterCategory === "all" ? true : todo.category === filterCategory
+          )
+          .filter((todo) =>
+            todo.title.toLowerCase().includes(search.toLowerCase())
+          )}
         completeTodo={completeTodo}
         removeTodo={removeTodo}
         updateTodo={updateTodo}
