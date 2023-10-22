@@ -42,7 +42,7 @@ function TodoList() {
     }
     const response = await createTask({
       title: todo.title,
-      category: todo.category,
+      category: todo.category
     });
 
     const newTodos = [{ ...todo, id: response.data.id }, ...todos];

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo_keevo from "../../assets/banner.png";
 import { login } from "../../requests/User";
-import isValidEmail from "../../utils/functions/functions";
+import isValidEmail from "../../utils/functions/isValidEmail";
 import "./Login.css";
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -49,7 +49,7 @@ function LoginPage() {
                 type="email"
                 id="email"
                 value={email}
-                onChange={(event) => setEmail(event.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div>
@@ -58,7 +58,7 @@ function LoginPage() {
                 type="password"
                 id="password"
                 value={password}
-                onChange={(event) => setPassword(event.target.value)}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
             {loading ? (

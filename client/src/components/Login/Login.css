@@ -79,7 +79,9 @@ body{
   border-bottom-right-radius: 5px;
   display: none;
 }
-
+h2 {
+    color: #0f0c29;
+}
 .error {
     color: red;
     font-size: 0.8em;

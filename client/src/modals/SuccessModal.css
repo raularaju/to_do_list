@@ -1,0 +1,40 @@
+/* Your CSS for the SuccessModal component */
+.modal {
+    /* Your existing modal styles */
+  
+    /* Center the modal */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  h2 {
+    font-size: 24px;
+  }
+  
+  img {
+    max-width: 100%;
+    height: auto;
+    margin: 20px 0; /* Adjust margin as needed */
+  }
+  
+  p {
+    font-size: 16px;
+    text-align: center;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  

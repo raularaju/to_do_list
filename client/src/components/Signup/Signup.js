@@ -1,34 +1,123 @@
-/* import React from 'react'
-//import bgImg from '../assets/img1.jpg';
-import { useForm } from 'react-hook-form';
+import React, { useState } from "react";
+import { createUser } from "../../requests/User";
+import { Link, useNavigate } from "react-router-dom";
+import SuccessModal from "../../modals/SucessModal";
+import "./Signup.css";
+import isValidEmail from "../../utils/functions/isValidEmail";
 
-export default function Form() {
+function Signup(props) {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
-    const { register, handleSubmit, formState: { errors } } = useForm()
-    const onSubmit = data => console.log(data);
+  const navigate = useNavigate();
+  const handleSubmit = async (event) => {
+    if (name === "" || email === "" || password === "") {
+      setError("Preencha todos os campos");
+      setLoading(false);
+      return;
+    }
 
-    
+    if (password !== confirmPassword) {
+      setError("Campos de senha e confirmação de senha não são iguais");
+      setLoading(false);
+      return;
+    }
+
+    if (!isValidEmail(email)) {
+      setError("Email inválido");
+      setLoading(false);
+      return;
+    }
+    setLoading(true);
+
+    try {
+      createUser({ name: name, email: name, password: password })
+        .then(() => {
+          setShowSuccessModal(true);
+          setName("");
+          setEmail("");
+          setPassword("");
+          setConfirmPassword("");
+          setError("");
+          setLoading(false);
+        })
+        .catch(() => {
+          setError("Usuário já cadastrado");
+          setLoading(false);
+        });
+    } catch (error) {
+      console.error(error);
+      setError("Usuário já cadastrado");
+      setLoading(false);
+    }
+  };
+
   return (
-    <section>
-        <div className="register">
-            <div className="col-1">
-                <h2>Sign In</h2>
-                <span>register and enjoy the service</span>
+    <div className="signup-container">
+      <h1>Cadastro de usuário</h1>
+      <form>
+        <label htmlFor="name">Nome:</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
 
-                <form id='form' className='flex flex-col' onSubmit={handleSubmit(onSubmit)}>
-                    <input type="text" {...register("username")} placeholder='username' />
-                    <input type="text" {...register("password")} placeholder='password' />
-                    <input type="text" {...register("confirmpwd")} placeholder='confirm password' />
-                    <input type="text" {...register("mobile", { required : true, maxLength: 10 })} placeholder='mobile number' />
-                    {errors.mobile?.type === "required" && "Mobile Number is required"}
-                    {errors.mobile?.type === "maxLength" && "Max Length Exceed"}
-                    <button className='btn'>Sign In</button>
-                </form>
+        <label htmlFor="email">Email:</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
 
-            </div>
-            <div className="col-2">
-            </div>
+        <label htmlFor="password">Senha:</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+
+        <label htmlFor="confirmPassword">Confirme a senha:</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          name="confirmPassword"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          required
+        />
+
+        <div className="submit-container">
+          <button type="button" disabled={loading} onClick={handleSubmit}>
+            {loading ? "Loading..." : "Sign Up"}
+          </button>
+          {error && <p className="error">{error}</p>}
         </div>
-    </section>
-  )
-} */
+      </form>
+      <h4>
+        JÁ POSSUI UMA CONTA? <Link to="/">ENTRE AQUI</Link>
+      </h4>
+      <SuccessModal
+        isOpen={showSuccessModal}
+        closeModal={() => setShowSuccessModal(false)}
+        redirectToLogin={() => navigate('/')} 
+      />
+    </div>
+  );
+}
+
+export default Signup;
