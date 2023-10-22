@@ -1,5 +1,4 @@
-
-body{
+body {
   background-image: url(../../assets/pawel-nolbert-4u2U8EO9OzY-unsplash.jpg);
 }
 .todo-list-container {
@@ -24,6 +23,26 @@ h1 {
 .complete {
   text-decoration: line-through;
   opacity: 0.4;
+}
+
+.Trabalho {
+  background: #0EDAFC;
+}
+
+.Pessoal {
+  background: #FBAE0D;
+}
+
+.Casa {
+  background: #FF5B5C;
+}
+
+.Estudo {
+  background: #BB1B9B;
+}
+
+.Outros {
+  background: #9817AB;
 }
 
 .todo-form {
@@ -99,11 +118,11 @@ h1 {
   align-items: center;
   margin: 4px auto;
   color: #fff;
-  background: linear-gradient(
+  /* background: linear-gradient(
     90deg,
     rgba(255, 118, 20, 1) 0%,
     rgba(255, 84, 17, 1) 100%
-  );
+  ); */
 
   padding: 16px;
   border-radius: 5px;
@@ -123,7 +142,8 @@ h1 {
   align-items: flex-start;
   width: 70%;
 }
-.todo-row:nth-child(4n + 1) {
+
+/* .todo-row:nth-child(4n + 1) {
   background: linear-gradient(90deg, #be1a99 0%, #491146 100%);
 }
 
@@ -133,7 +153,7 @@ h1 {
 
 .todo-row:nth-child(4n + 3) {
   background: linear-gradient(90deg, #73e4f6 0%, #35bcee 100%);
-}
+} */
 
 .icons {
   display: flex;
@@ -167,7 +187,7 @@ h1 {
 }
 
 .search {
-  background: #161a2b; /* Background color */
+  background: #161a2b;
   padding: 10px;
   margin-bottom: 2px;
 }

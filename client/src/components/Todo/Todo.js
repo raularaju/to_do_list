@@ -3,7 +3,14 @@ import TodoForm from "../TodoForm/TodoForm";
 import { RiCloseCircleLine } from "react-icons/ri";
 import { TiEdit } from "react-icons/ti";
 
-const Todo = ({ todos, completeTodo, removeTodo, updateTodo }) => {
+const Todo = ({
+  todos,
+  completeTodo,
+  removeTodo,
+  updateTodo,
+  startEditing,
+  stopEditing
+}) => {
   const [edit, setEdit] = useState({
     id: null,
     title: "",
@@ -17,22 +24,26 @@ const Todo = ({ todos, completeTodo, removeTodo, updateTodo }) => {
       title: "",
       category: "",
     });
+    stopEditing();
   };
 
   if (edit.id) {
-    console.log("vrau");
     return <TodoForm edit={edit} onSubmit={submitUpdate} />;
   }
 
   return todos.map((todo, index) => (
     <div
-      className={todo.isComplete ? "todo-row complete" : "todo-row"}
+      className={todo.isComplete ? "todo-row complete " + todo.category : "todo-row " + todo.category}
       key={index}
     >
-      <div className="content" key={todo.id} onClick={() => completeTodo(todo.id)}>
+      <div
+        className="content"
+        key={todo.id}
+        onClick={() => completeTodo(todo.id)}
+      >
         <div className="content-left">
-        <p> {todo.title} </p>
-        <p> ({todo.category}) </p>
+          <p> {todo.title} </p>
+          <p> ({todo.category}) </p>
         </div>
       </div>
       <div className="icons">
@@ -41,7 +52,14 @@ const Todo = ({ todos, completeTodo, removeTodo, updateTodo }) => {
           className="delete-icon"
         />
         <TiEdit
-          onClick={() => setEdit({ id: todo.id, title: todo.title, category: todo.category })}
+          onClick={() => {
+            startEditing();
+            setEdit({
+              id: todo.id,
+              title: todo.title,
+              category: todo.category,
+            });
+          }}
           className="edit-icon"
         />
       </div>

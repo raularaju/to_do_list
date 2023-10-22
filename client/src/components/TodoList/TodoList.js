@@ -18,6 +18,8 @@ function TodoList() {
   const [filterStatus, setFilterStatus] = useState("all"); // ["all", "completed", "uncompleted"
   const [filterCategory, setFilterCategory] = useState("all"); // ["all", "Trabalho", "Pessoal", "Casa", "Estudo", "Outros"]
   const [isCreatingTask, setIsCreatingTask] = useState(true);
+  const [isEditing, setIsEditing] = useState(false);
+  
   const { UserId } = useParams();
 
   useEffect(() => {
@@ -89,6 +91,13 @@ function TodoList() {
     }
     setTodos(updatedTodos);
   };
+  const startEditing = () => {
+    setIsEditing(true);
+  };
+  const stopEditing = () => {
+    setIsEditing(false)
+  };
+
   return (
     <div className="todo-list-container">
       <h1>Gerenciador de Tarefas</h1>
@@ -96,7 +105,7 @@ function TodoList() {
         {isCreatingTask ? "Pesquisar tarefas" : "Criar tarefas"}
       </button>
 
-      {isCreatingTask ? (
+      {isEditing ? null : isCreatingTask ? (
         <TodoForm onSubmit={addTodo} />
       ) : (
         <>
@@ -128,6 +137,8 @@ function TodoList() {
         completeTodo={completeTodo}
         removeTodo={removeTodo}
         updateTodo={updateTodo}
+        startEditing={startEditing}
+        stopEditing={stopEditing}
       />
     </div>
   );
