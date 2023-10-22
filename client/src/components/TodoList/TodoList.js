@@ -8,6 +8,7 @@ import {
   updateTask,
   createTask,
   getAllTasksFromUser,
+  markAllTasksAsComplete
 } from "../../requests/Task";
 import Search from "../Search/Search";
 import DuplicateTaskModal from "../../modals/DuplicateTaskModal/DuplicateTaskModal";
@@ -108,14 +109,18 @@ function TodoList() {
   const stopEditing = () => {
     setIsEditing(false);
   };
-  const markAllTasksAsCompleted = () => {
+  const completAllTasks = async () => {
     const updatedTasks = todos.map((task) => ({
       ...task,
       isComplete: true,
     }));
     // Update the state to reflect the changes
     setTodos(updatedTasks);
-    // You can also send a request to your API to update the tasks on the server if necessary.
+    try {
+      await markAllTasksAsComplete(UserId);
+    }catch (error) {
+      throw error;
+    }
   };
     
 
@@ -139,7 +144,7 @@ function TodoList() {
           />
         </>
       )}
-      <button onClick={markAllTasksAsCompleted}>Mark All as Completed</button>
+      <button onClick={completAllTasks}>Mark All as Completed</button>
       
       <Todo
         todos={todos

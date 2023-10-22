@@ -2,7 +2,7 @@ const Router = require("express").Router();
 const { jwtMiddleware } = require("../../../middlewares/auth");
 const httpsStatusCodes = require("../../../utils/constants/httpStatusCodes");
 const Task = require("../models/Task");
-const TaskService = require("../services/index");
+const TaskService = require("../services/TaskService");
 
 Router.post("/", jwtMiddleware, async (req, res, next) => {
   try {

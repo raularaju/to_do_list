@@ -1,8 +1,8 @@
 import api from "./api";
 
-export const getAllTasksFromUser = async (idUser) => {
+export const getAllTasksFromUser = async (UserId) => {
   try {
-    const response = await api.get(`/user/${idUser}/tasks`);
+    const response = await api.get(`/user/${UserId}/tasks`);
     return response;
   } catch (error) {
     throw error;
@@ -46,3 +46,12 @@ export const deleteTask = async (id) => {
     throw error;
   }
 };
+
+export const markAllTasksAsComplete = async (UserId) => {
+  try{
+    const response = await api.put(`/user/${UserId}/tasks`);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}

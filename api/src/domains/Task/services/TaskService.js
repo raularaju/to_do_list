@@ -17,8 +17,7 @@ class TaskService {
     } catch (error) {
       if (error instanceof UniqueConstraintError) {
         throw new UniqueConstraintError();
-      }
-      else{
+      } else {
         throw new Error(error);
       }
     }
@@ -48,6 +47,22 @@ class TaskService {
       throw new QueryError("Tarefa não encontrada");
     }
   }
+
+  async markAllAsComplete(userId) {
+    try {
+      await Task.update(
+        { isComplete: true },
+        {
+          where: {
+            UserId: userId,
+          },
+        }
+      );
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+  
 }
 
 module.exports = new TaskService();
