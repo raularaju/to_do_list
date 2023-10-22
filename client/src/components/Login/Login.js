@@ -27,7 +27,8 @@ function LoginPage() {
 
     try {
       const res = await login(email, password);
-      navigate("/tasks");
+      console.log(res.data.id)
+      navigate(`/tasks/${res.data.id}`);
     } catch (error) {
       console.log(error);
       setError("Senha e/ou email incorretos");
@@ -62,7 +63,7 @@ function LoginPage() {
               />
             </div>
             {loading ? (
-              <div>Loading...</div>
+              <div>Carregando...</div>
             ) : (
               <>
                 <button className="btn" type="submit">

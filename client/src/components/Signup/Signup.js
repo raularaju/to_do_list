@@ -36,7 +36,7 @@ function Signup(props) {
     setLoading(true);
 
     try {
-      createUser({ name: name, email: name, password: password })
+      createUser({ name: name, email: email, password: password })
         .then(() => {
           setShowSuccessModal(true);
           setName("");

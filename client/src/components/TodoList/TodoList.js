@@ -7,20 +7,23 @@ import {
   deleteTask,
   updateTask,
   createTask,
-  getAllTasks,
+  getAllTasksFromUser,
 } from "../../requests/Task";
 import Search from "../Search/Search";
+import { useParams } from "react-router-dom";
+
 function TodoList() {
   const [todos, setTodos] = useState([]);
   const [search, setSearch] = useState("");
   const [filterStatus, setFilterStatus] = useState("all"); // ["all", "completed", "uncompleted"
   const [filterCategory, setFilterCategory] = useState("all"); // ["all", "Trabalho", "Pessoal", "Casa", "Estudo", "Outros"]
   const [isCreatingTask, setIsCreatingTask] = useState(true);
+  const { UserId } = useParams();
 
   useEffect(() => {
     async function fetchTasks() {
       try {
-        const response = await getAllTasks();
+        const response = await getAllTasksFromUser(UserId);
         setTodos(response.data);
       } catch (error) {
         console.error("Error loading tasks:", error);
@@ -28,7 +31,7 @@ function TodoList() {
     }
 
     fetchTasks();
-  }, []);
+  }, [UserId]);
 
   const toggleCreateTaskMode = () => {
     setFilterCategory("all");
@@ -40,14 +43,19 @@ function TodoList() {
     if (!todo.title || /^\s*$/.test(todo.title)) {
       return;
     }
-    const response = await createTask({
-      title: todo.title,
-      category: todo.category
-    });
+    try {
+      const response = await createTask({
+        title: todo.title,
+        category: todo.category,
+        UserId: UserId,
+      });
+      const newTodos = [{ ...todo, id: response.data.id }, ...todos];
 
-    const newTodos = [{ ...todo, id: response.data.id }, ...todos];
-
-    setTodos(newTodos);
+      setTodos(newTodos);
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
   };
 
   const updateTodo = async (todoId, newValue) => {

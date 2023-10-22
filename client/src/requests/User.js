@@ -1,36 +1,30 @@
-import api from './api';
-
-
+import api from "./api";
 
 export const createUser = async (userObj) => {
-    const response = await api.post('/user/', userObj).catch(
-      (error) => {
-        if (error.response) {
-          throw error.response.data;
-        }
-    });
-  
-  return response;
-}
+  try {
+    console.log(userObj)
+    const response = await api.post("/user/", userObj);
+    console.log(response.data);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
 
 export const login = async (email, password) => {
-  const response = await api.post('/user/login/', { email, password }).catch(
-    (error) => {
-      if (error.response) {
-        throw error.response.data;
-      }
-  });
-
-  return response;
-}
+  try {
+    const response = await api.post("/user/login/", { email, password });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
 
 export const logout = async () => {
-  const response = await api.post('/user/logout/').catch(
-    (error) => {
-      if (error.response) {
-        throw error.response.data;
-      }
-  });
-
-  return response;
-}
+  try {
+    const response = await api.post("/user/logout/");
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};

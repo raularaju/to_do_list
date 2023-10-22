@@ -10,10 +10,10 @@ const SuccessModal = ({ isOpen, closeModal, redirectToLogin }) => {
       contentLabel="Success Modal"
       className="modal"
     >
-      <h2>Account Created Successfully!</h2>
+      <h2>Registro completo!</h2>
       <img src={successImage} alt="Success" /> 
-      <p>Your account has been created. You can now log in.</p>
-      <button onClick={redirectToLogin}>Go to Login</button>
+      <p>Sua conta foi criada. Você pode fazer log in agora.</p>
+      <button onClick={redirectToLogin}>Ir para Login</button>
     </Modal>
   );
 };
