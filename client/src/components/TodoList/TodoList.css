@@ -57,6 +57,8 @@ h1 {
   width: 320px;
   background: transparent;
   color: #fff;
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
 .todo-select {
@@ -89,6 +91,12 @@ h1 {
   text-transform: capitalize;
 }
 
+.todo-button[disabled] {
+  background: #ccc;
+  cursor: not-allowed; 
+  color: #999;
+}
+
 .todo-input.edit {
   border: 2px solid #149fff;
 }
@@ -118,12 +126,6 @@ h1 {
   align-items: center;
   margin: 4px auto;
   color: #fff;
-  /* background: linear-gradient(
-    90deg,
-    rgba(255, 118, 20, 1) 0%,
-    rgba(255, 84, 17, 1) 100%
-  ); */
-
   padding: 16px;
   border-radius: 5px;
   width: 90%;
@@ -143,17 +145,6 @@ h1 {
   width: 70%;
 }
 
-/* .todo-row:nth-child(4n + 1) {
-  background: linear-gradient(90deg, #be1a99 0%, #491146 100%);
-}
-
-.todo-row:nth-child(4n + 2) {
-  background: linear-gradient(90deg, #fdac0f 0%, #fc5c5d 100%);
-}
-
-.todo-row:nth-child(4n + 3) {
-  background: linear-gradient(90deg, #73e4f6 0%, #35bcee 100%);
-} */
 
 .icons {
   display: flex;
@@ -255,3 +246,12 @@ h2 {
   align-items: center;
   height: 40px;
 }
+
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+

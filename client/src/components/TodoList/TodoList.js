@@ -10,6 +10,7 @@ import {
   getAllTasksFromUser,
 } from "../../requests/Task";
 import Search from "../Search/Search";
+import DuplicateTaskModal from "../../modals/DuplicateTaskModal/DuplicateTaskModal";
 import { useParams } from "react-router-dom";
 
 function TodoList() {
@@ -19,7 +20,7 @@ function TodoList() {
   const [filterCategory, setFilterCategory] = useState("all"); // ["all", "Trabalho", "Pessoal", "Casa", "Estudo", "Outros"]
   const [isCreatingTask, setIsCreatingTask] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
-  
+  const [isDuplicateTaskModalOpen, setDuplicateTaskModalOpen] = useState(false);
   const { UserId } = useParams();
 
   useEffect(() => {
@@ -38,11 +39,19 @@ function TodoList() {
   const toggleCreateTaskMode = () => {
     setFilterCategory("all");
     setFilterStatus("all");
+    setSearch("");
     setIsCreatingTask(!isCreatingTask);
   };
 
   const addTodo = async (todo) => {
     if (!todo.title || /^\s*$/.test(todo.title)) {
+      return;
+    }
+    const exists = todos.some((t) => {
+      return todo.title === t.title;
+    });
+    if (exists) {
+      setDuplicateTaskModalOpen(true);
       return;
     }
     try {
@@ -56,7 +65,9 @@ function TodoList() {
       setTodos(newTodos);
     } catch (error) {
       console.log(error);
-      throw error;
+      if (error.code === "ERR_BAD_REQUEST") {
+        setDuplicateTaskModalOpen(true);
+      }
     }
   };
 
@@ -95,8 +106,18 @@ function TodoList() {
     setIsEditing(true);
   };
   const stopEditing = () => {
-    setIsEditing(false)
+    setIsEditing(false);
   };
+  const markAllTasksAsCompleted = () => {
+    const updatedTasks = todos.map((task) => ({
+      ...task,
+      isComplete: true,
+    }));
+    // Update the state to reflect the changes
+    setTodos(updatedTasks);
+    // You can also send a request to your API to update the tasks on the server if necessary.
+  };
+    
 
   return (
     <div className="todo-list-container">
@@ -118,7 +139,8 @@ function TodoList() {
           />
         </>
       )}
-
+      <button onClick={markAllTasksAsCompleted}>Mark All as Completed</button>
+      
       <Todo
         todos={todos
           .filter((todo) =>
@@ -139,6 +161,11 @@ function TodoList() {
         updateTodo={updateTodo}
         startEditing={startEditing}
         stopEditing={stopEditing}
+      />
+      <DuplicateTaskModal
+        isOpen={isDuplicateTaskModalOpen}
+        closeModal={() => setDuplicateTaskModalOpen(false)}
+
       />
     </div>
   );

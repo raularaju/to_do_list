@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { createUser } from "../../requests/User";
 import { Link, useNavigate } from "react-router-dom";
-import SuccessModal from "../../modals/SucessModal";
+import SuccessModal from "../../modals/SuccessModal/SucessModal";
 import "./Signup.css";
 import isValidEmail from "../../utils/functions/isValidEmail";
 

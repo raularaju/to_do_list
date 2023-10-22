@@ -9,7 +9,6 @@ Router.post("/", jwtMiddleware, async (req, res, next) => {
     const task = await TaskService.create(req.body);
     res.status(httpsStatusCodes.ACCEPTED).send(task);
   } catch (error) {
-    console.log(error);
     next(error);
   }
 });

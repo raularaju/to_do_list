@@ -1,4 +1,4 @@
-const { QueryError } = require("sequelize");
+const { QueryError, UniqueConstraintError } = require("sequelize");
 const Task = require("../models/Task");
 
 class TaskService {
@@ -15,7 +15,12 @@ class TaskService {
     try {
       return await Task.create(body);
     } catch (error) {
-      throw new Error(error);
+      if (error instanceof UniqueConstraintError) {
+        throw new UniqueConstraintError();
+      }
+      else{
+        throw new Error(error);
+      }
     }
   }
 
