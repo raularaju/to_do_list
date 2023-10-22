@@ -58,64 +58,66 @@ function Signup(props) {
   };
 
   return (
-    <div className="signup-container">
-      <h1>Cadastro de usuário</h1>
-      <form>
-        <label htmlFor="name">Nome:</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
+    <div className="signup">
+      <div className="signup-container">
+        <h1>Cadastro de usuário</h1>
+        <form>
+          <label htmlFor="name">Nome:</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
 
-        <label htmlFor="email">Email:</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+          <label htmlFor="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
 
-        <label htmlFor="password">Senha:</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+          <label htmlFor="password">Senha:</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
 
-        <label htmlFor="confirmPassword">Confirme a senha:</label>
-        <input
-          type="password"
-          id="confirmPassword"
-          name="confirmPassword"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          required
-        />
+          <label htmlFor="confirmPassword">Confirme a senha:</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+          />
 
-        <div className="submit-container">
-          <button type="button" disabled={loading} onClick={handleSubmit}>
-            {loading ? "Loading..." : "Sign Up"}
-          </button>
-          {error && <p className="error">{error}</p>}
-        </div>
-      </form>
-      <h4>
-        JÁ POSSUI UMA CONTA? <Link to="/">ENTRE AQUI</Link>
-      </h4>
-      <SuccessModal
-        isOpen={showSuccessModal}
-        closeModal={() => setShowSuccessModal(false)}
-        onClick={() => navigate('/')} 
-      />
+          <div className="submit-container">
+            <button type="button" disabled={loading} onClick={handleSubmit}>
+              {loading ? "Loading..." : "Sign Up"}
+            </button>
+            {error && <p className="error">{error}</p>}
+          </div>
+        </form>
+        <h4>
+          JÁ POSSUI UMA CONTA? <Link to="/">ENTRE AQUI</Link>
+        </h4>
+        <SuccessModal
+          isOpen={showSuccessModal}
+          closeModal={() => setShowSuccessModal(false)}
+          onClick={() => navigate("/")}
+        />
+      </div>
     </div>
   );
 }

@@ -126,13 +126,21 @@ function TodoList() {
     <div className="todo-list">
       <div className="todo-list-container">
         <h1>Gerenciador de Tarefas</h1>
+        {!isEditing && (
+          <button onClick={toggleCreateTaskMode} className="toggle-button">
+            {isCreatingTask ? "Pesquisar tarefas" : "Criar tarefas"}
+          </button>
+        )}
 
         {isEditing ? null : isCreatingTask ? (
           <>
-            <button onClick={toggleCreateTaskMode} className="toggle-button">
-              {isCreatingTask ? "Pesquisar tarefas" : "Criar tarefas"}
-            </button>
             <TodoForm onSubmit={addTodo} />
+            <button
+              className="completeAllTasks-button"
+              onClick={completeAllTasks}
+            >
+              Completar todas
+            </button>
           </>
         ) : (
           <>
@@ -144,14 +152,6 @@ function TodoList() {
               setFilterCategory={setFilterCategory}
             />
           </>
-        )}
-        {!isEditing && (
-          <button
-            className="completeAllTasks-button"
-            onClick={completeAllTasks}
-          >
-            Completar todas
-          </button>
         )}
 
         <Todo

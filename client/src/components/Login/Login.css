@@ -54,12 +54,12 @@
 }
 
 #form > div {
-  display: block; 
-  margin-bottom: 1em; 
+  display: block;
+  margin-bottom: 1em;
 }
 
 #form > label {
-  font-weight: bold; 
+  font-weight: bold;
   margin-right: 10em;
 }
 
@@ -75,10 +75,21 @@
 }
 
 #form > .btn {
-  background-color: #003049;
+  border: none;
+  border-radius: 4px 4px 4px 4px;
+  cursor: pointer;
+  outline: none;
+  background: linear-gradient(
+    90deg,
+    rgba(93, 12, 255, 1) 0%,
+    rgba(155, 0, 250, 1) 100%
+  );
   color: #e9ecef;
   font-size: 1em;
   cursor: pointer;
+}
+#form > .btn:hover{
+  background: #7c3dff;
 }
 
 .flex {
@@ -96,4 +107,12 @@
   .login .col-right img {
     display: initial;
   }
+}
+.login img {
+  margin-right: 10px; /* Adjust the margin as needed to increase the space */
+  margin-top: 2px;
+}
+
+.login input {
+  align-items: center;
 }

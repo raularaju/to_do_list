@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import "./Login.css";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../requests/User";
 import isValidEmail from "../../utils/functions/isValidEmail";
-import "./Login.css";
+const userIcon = require("../../assets/person.png");
+const passwordIcon = require("../../assets/password.png");
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -43,21 +45,23 @@ function Login() {
           <h2>Login</h2>
           <span>O que será feito hoje? </span>
           <form id="form" className="flex flex-col" onSubmit={handleSubmit}>
-            <div>
-              <label htmlFor="Email">Email: </label>
+            <div className="input">
+            <img src = {userIcon} alt="" />
               <input
                 type="email"
                 id="email"
                 value={email}
+                placeholder="Email"
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div>
-              <label htmlFor="password">Senha: </label>
+              <img src = {passwordIcon} alt="" />
               <input
                 type="password"
                 id="password"
                 value={password}
+                placeholder="Senha"
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>

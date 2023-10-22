@@ -42,6 +42,8 @@ function TodoForm(props) {
       category: categoryInput,
     });
     setTitleInput("");
+    setTitleError("");
+    setCategoryError("");
   };
   return (
     <form onSubmit={handleSubmit} className="todo-form">
