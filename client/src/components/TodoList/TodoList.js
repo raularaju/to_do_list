@@ -8,7 +8,7 @@ import {
   updateTask,
   createTask,
   getAllTasksFromUser,
-  markAllTasksAsComplete
+  markAllTasksAsComplete,
 } from "../../requests/Task";
 import Search from "../Search/Search";
 import DuplicateTaskModal from "../../modals/DuplicateTaskModal/DuplicateTaskModal";
@@ -109,69 +109,77 @@ function TodoList() {
   const stopEditing = () => {
     setIsEditing(false);
   };
-  const completAllTasks = async () => {
+  const completeAllTasks = async () => {
     const updatedTasks = todos.map((task) => ({
       ...task,
       isComplete: true,
     }));
-    // Update the state to reflect the changes
     setTodos(updatedTasks);
     try {
       await markAllTasksAsComplete(UserId);
-    }catch (error) {
+    } catch (error) {
       throw error;
     }
   };
-    
 
   return (
-    <div className="todo-list-container">
-      <h1>Gerenciador de Tarefas</h1>
-      <button onClick={toggleCreateTaskMode} className="toggle-button">
-        {isCreatingTask ? "Pesquisar tarefas" : "Criar tarefas"}
-      </button>
+    <div className="todo-list">
+      <div className="todo-list-container">
+        <h1>Gerenciador de Tarefas</h1>
 
-      {isEditing ? null : isCreatingTask ? (
-        <TodoForm onSubmit={addTodo} />
-      ) : (
-        <>
-          <Search search={search} setSearch={setSearch} />
-          <Filter
-            filterStatus={filterStatus}
-            setFilterStatus={setFilterStatus}
-            filterCategory={filterCategory}
-            setFilterCategory={setFilterCategory}
-          />
-        </>
-      )}
-      <button onClick={completAllTasks}>Mark All as Completed</button>
-      
-      <Todo
-        todos={todos
-          .filter((todo) =>
-            filterStatus === "all"
-              ? true
-              : filterStatus === "completed"
-              ? todo.isComplete
-              : !todo.isComplete
-          )
-          .filter((todo) =>
-            filterCategory === "all" ? true : todo.category === filterCategory
-          )
-          .filter((todo) =>
-            todo.title.toLowerCase().includes(search.toLowerCase())
-          )}
-        completeTodo={completeTodo}
-        removeTodo={removeTodo}
-        updateTodo={updateTodo}
-        startEditing={startEditing}
-        stopEditing={stopEditing}
-      />
-      <DuplicateTaskModal
-        isOpen={isDuplicateTaskModalOpen}
-        closeModal={() => setDuplicateTaskModalOpen(false)}
+        {isEditing ? null : isCreatingTask ? (
+          <>
+            <button onClick={toggleCreateTaskMode} className="toggle-button">
+              {isCreatingTask ? "Pesquisar tarefas" : "Criar tarefas"}
+            </button>
+            <TodoForm onSubmit={addTodo} />
+          </>
+        ) : (
+          <>
+            <Search search={search} setSearch={setSearch} />
+            <Filter
+              filterStatus={filterStatus}
+              setFilterStatus={setFilterStatus}
+              filterCategory={filterCategory}
+              setFilterCategory={setFilterCategory}
+            />
+          </>
+        )}
+        {!isEditing && (
+          <button
+            className="completeAllTasks-button"
+            onClick={completeAllTasks}
+          >
+            Completar todas
+          </button>
+        )}
 
-      />
+        <Todo
+          todos={todos
+            .filter((todo) =>
+              filterStatus === "all"
+                ? true
+                : filterStatus === "completed"
+                ? todo.isComplete
+                : !todo.isComplete
+            )
+            .filter((todo) =>
+              filterCategory === "all" ? true : todo.category === filterCategory
+            )
+            .filter((todo) =>
+              todo.title.toLowerCase().includes(search.toLowerCase())
+            )}
+          completeTodo={completeTodo}
+          removeTodo={removeTodo}
+          updateTodo={updateTodo}
+          startEditing={startEditing}
+          stopEditing={stopEditing}
+        />
+        <DuplicateTaskModal
+          isOpen={isDuplicateTaskModalOpen}
+          closeModal={() => setDuplicateTaskModalOpen(false)}
+        />
+      </div>
     </div>
   );
 }

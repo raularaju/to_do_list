@@ -1,6 +1,6 @@
-import React from 'react';
-import Modal from 'react-modal';
-/* import "./DuplicateTaskModal.css"; */
+import React from "react";
+import Modal from "react-modal";
+import "./DuplicateTaskModal.css";
 const DuplicateTaskModal = ({ isOpen, closeModal }) => {
   return (
     <Modal
@@ -11,7 +11,7 @@ const DuplicateTaskModal = ({ isOpen, closeModal }) => {
     >
       <h2>Tarefa Duplicada</h2>
       <p>Uma tarefa com esse nome já existe</p>
-      <button onClick={closeModal}>Close</button>
+      <button onClick={closeModal}>Fechar</button>
     </Modal>
   );
 };

@@ -114,7 +114,7 @@ function Signup(props) {
       <SuccessModal
         isOpen={showSuccessModal}
         closeModal={() => setShowSuccessModal(false)}
-        redirectToLogin={() => navigate('/')} 
+        onClick={() => navigate('/')} 
       />
     </div>
   );

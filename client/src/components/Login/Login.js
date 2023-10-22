@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import logo_keevo from "../../assets/banner.png";
 import { login } from "../../requests/User";
 import isValidEmail from "../../utils/functions/isValidEmail";
 import "./Login.css";
-function LoginPage() {
+function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -77,13 +76,9 @@ function LoginPage() {
             NÃO POSSUI UMA CONTA? <Link to="/signup">CRIE AQUI</Link>
           </h4>
         </div>
-
-        <div className="col-right">
-          <img src={logo_keevo} alt="" />
-        </div>
       </div>
     </>
   );
 }
 
-export default LoginPage;
+export default Login;
