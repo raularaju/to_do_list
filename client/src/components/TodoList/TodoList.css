@@ -174,20 +174,30 @@ body{
   color: #fff;
 }
 
-.toggle-button {
+.mode-button {
   padding: 10px 20px;
   background: #5d0cff;
   color: #fff;
   border: none;
-  border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
   margin-bottom: 16px;
+  width: 30%;
 }
 
-.toggle-button:hover {
-  background: #7c3dff;
+.create-mode{
+  border-radius: 4px 0 0 4px;
 }
+
+.search-mode{
+  border-radius: 0 4px 4px 0;
+}
+
+
+.gray{
+  background: #212b53;
+}
+
 
 .search {
   background: #161a2b;

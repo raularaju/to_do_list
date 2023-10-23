@@ -17,11 +17,7 @@ const Task = database.define('Task', {
         unique: true,
         allowNull: false
     },
-
-    description: {
-        type: Sequelize.TEXT,
-        allowNull: true
-    },
+    
     category: {
         type: Sequelize.ENUM('Casa', 'Trabalho', 'Estudo', 'Pessoal', 'Outros'),
         defaultValue: 'outros',

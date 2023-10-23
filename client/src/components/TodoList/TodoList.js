@@ -42,6 +42,7 @@ function TodoList() {
   }, [UserId]);
 
   const toggleCreateTaskMode = () => {
+    console.log(isCreatingTask)
     setFilterCategory("all");
     setFilterStatus("all");
     setSearch("");
@@ -94,6 +95,7 @@ function TodoList() {
       throw error;
     }
   };
+
   const removeTodo = async (e, id) => {
     if(isLoading) return;
     setIsLoading(true);
@@ -157,9 +159,10 @@ function TodoList() {
       <div className="todo-list-container">
         <h1>Gerenciador de Tarefas</h1>
         {!isEditing && (
-          <button onClick={toggleCreateTaskMode} className="toggle-button">
-            {isCreatingTask ? "Pesquisar tarefas" : "Criar tarefas"}
-          </button>
+          <div>
+          <button className={isCreatingTask ? "mode-button create-mode" : "mode-button create-mode gray"} onClick={toggleCreateTaskMode}>Criação </button>
+          <button className={isCreatingTask ? "mode-button search-mode gray" : "mode-button search-mode"}  onClick={toggleCreateTaskMode}>Pesquisa </button>
+          </div>
         )}
 
         {isEditing ? null : isCreatingTask ? (

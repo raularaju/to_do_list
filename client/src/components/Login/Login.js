@@ -15,20 +15,20 @@ function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
-    if(email === "" || password === "") {
-        setError("Preencha todos os campos");
-        setLoading(false);
-        return;
+    if (email === "" || password === "") {
+      setError("Preencha todos os campos");
+      setLoading(false);
+      return;
     }
-    if(!isValidEmail(email)) {
-        setError("Email inválido");
-        setLoading(false);
-        return;
+    if (!isValidEmail(email)) {
+      setError("Email inválido");
+      setLoading(false);
+      return;
     }
 
     try {
       const res = await login(email, password);
-      console.log(res.data.id)
+      console.log(res.data.id);
       navigate(`/tasks/${res.data.id}`);
     } catch (error) {
       console.log(error);
@@ -46,7 +46,7 @@ function Login() {
           <span>O que será feito hoje? </span>
           <form id="form" className="flex flex-col" onSubmit={handleSubmit}>
             <div className="input">
-            <img src = {userIcon} alt="" />
+              <img src={userIcon} alt="" />
               <input
                 type="email"
                 id="email"
@@ -56,7 +56,7 @@ function Login() {
               />
             </div>
             <div>
-              <img src = {passwordIcon} alt="" />
+              <img src={passwordIcon} alt="" />
               <input
                 type="password"
                 id="password"
@@ -65,19 +65,20 @@ function Login() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            {loading ? (
-              <div>Carregando...</div>
-            ) : (
-              <>
-                <button className="btn" type="submit">
-                  Login
-                </button>
-              </>
-            )}
+
+            <>
+              <button className="btn" type="submit">
+                {loading ? "Carregando" : "Login"}
+              </button>
+            </>
+
             {error && <div className="error">{error}</div>}
           </form>
           <h4>
-            NÃO POSSUI UMA CONTA? <Link className="link" to="/signup">CRIE AQUI</Link>
+            NÃO POSSUI UMA CONTA?{" "}
+            <Link className="link" to="/signup">
+              CRIE AQUI
+            </Link>
           </h4>
         </div>
       </div>

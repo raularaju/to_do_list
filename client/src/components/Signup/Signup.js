@@ -104,7 +104,7 @@ function Signup(props) {
 
           <div className="submit-container">
             <button type="button" disabled={loading} onClick={handleSubmit}>
-              {loading ? "Loading..." : "Sign Up"}
+              {loading ? "Carregando..." : "Registrar"}
             </button>
             {error && <p className="error">{error}</p>}
           </div>
