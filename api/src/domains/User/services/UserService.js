@@ -22,7 +22,7 @@ class UserService {
       await User.create(body);
     } catch (error) {
       if (error instanceof UniqueConstraintError) {
-        throw new DuplicateError("Esse email já está cadastrado no sistema!");
+        throw new DuplicateError("Email já cadastrado");
       } else throw new QueryError("Os parâmetros não podem ser nulos");
     }
   }

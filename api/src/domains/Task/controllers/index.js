@@ -1,7 +1,6 @@
 const Router = require("express").Router();
 const { jwtMiddleware } = require("../../../middlewares/auth");
 const httpsStatusCodes = require("../../../utils/constants/httpStatusCodes");
-const Task = require("../models/Task");
 const TaskService = require("../services/TaskService");
 
 Router.post("/", jwtMiddleware, async (req, res, next) => {
@@ -45,7 +44,7 @@ Router.delete("/:id", async (req, res, next) => {
     await TaskService.delete(req.params.id);
     res.status(httpsStatusCodes.ACCEPTED).send("Tarefa deletada com sucesso");
   } catch (error) {
-    console.log(error);
+    console.log(error)
     next(error);
   }
 });

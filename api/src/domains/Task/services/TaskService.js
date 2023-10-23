@@ -1,5 +1,6 @@
 const { QueryError, UniqueConstraintError } = require("sequelize");
 const Task = require("../models/Task");
+const DuplicateError = require("../../../../errors/DuplicateError");
 
 class TaskService {
   async getById(id) {
@@ -16,7 +17,7 @@ class TaskService {
       return await Task.create(body);
     } catch (error) {
       if (error instanceof UniqueConstraintError) {
-        throw new UniqueConstraintError();
+        throw new DuplicateError("Tarefa já cadastrada");
       } else {
         throw new Error(error);
       }

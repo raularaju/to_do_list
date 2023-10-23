@@ -1,9 +1,9 @@
 const {JsonWebTokenError} = require('jsonwebtoken');
 const NotAuthorizedError = require('../../errors/NotAuthorizedError.js');
 const InvalidParamError = require("../../errors/InvalidParamError");
-const QueryError = require("../../errors/QueryError");
 const httpStatusCodes = require("../utils/constants/httpStatusCodes");
-const { UniqueConstraintError } = require("sequelize");
+const { QueryError, UniqueConstraintError } = require("sequelize");
+const DuplicateError = require('../../errors/DuplicateError.js');
 
 function errorHandler(error, req, res, next) {
   let message = error.message;
@@ -19,6 +19,10 @@ function errorHandler(error, req, res, next) {
   }
 
   if (error instanceof QueryError) {
+    status = httpStatusCodes.BAD_REQUEST;
+  }
+
+  if(error instanceof DuplicateError){
     status = httpStatusCodes.BAD_REQUEST;
   }
 

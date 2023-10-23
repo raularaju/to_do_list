@@ -22,7 +22,7 @@ function TodoForm(props) {
       setTitleInput(value);
       setTitleError("");
     } else {
-      setTitleError("Título muito grande.");
+      setTitleError("Nome muito grande.");
     }
   };
 
@@ -59,7 +59,7 @@ function TodoForm(props) {
             ref={inputRef}
             required
           />
-          <button onClick={handleSubmit} className="todo-button" disabled={titleError === "Título muito grande."}>
+          <button onClick={handleSubmit} className="todo-button" disabled={titleError === "Nome muito grande."}>
             Atualizar
           </button>
           <select
@@ -86,7 +86,7 @@ function TodoForm(props) {
             ref={inputRef}
             required
           />
-          <button onClick={handleSubmit} className="todo-button" disabled={titleError === "Título muito grande."}>
+          <button onClick={handleSubmit} className="todo-button" disabled={titleError === "Nome muito grande."}>
             Adicionar
           </button>
           {categoryError && <p className="category error-message">{categoryError}</p>}
