@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./TodoList.css";
+import { FaSignOutAlt } from "react-icons/fa";
 import TodoForm from "../TodoForm/TodoForm";
 import Todo from "../Todo/Todo";
 import Filter from "../Filter/Filter";
@@ -10,9 +11,10 @@ import {
   getAllTasksFromUser,
   markAllTasksAsComplete,
 } from "../../requests/Task";
+import { logout } from "../../requests/User";
 import Search from "../Search/Search";
 import DuplicateTaskModal from "../../modals/DuplicateTaskModal/DuplicateTaskModal";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function TodoList() {
   const [todos, setTodos] = useState([]);
@@ -23,6 +25,7 @@ function TodoList() {
   const [isEditing, setIsEditing] = useState(false);
   const [isDuplicateTaskModalOpen, setDuplicateTaskModalOpen] = useState(false);
   const { UserId } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchTasks() {
@@ -113,13 +116,14 @@ function TodoList() {
     setTodos(updatedTodos);
   };
 
-  
   const startEditing = () => {
     setIsEditing(true);
   };
+
   const stopEditing = () => {
     setIsEditing(false);
   };
+
   const completeAllTasks = async () => {
     const updatedTasks = todos.map((task) => ({
       ...task,
@@ -133,8 +137,18 @@ function TodoList() {
     }
   };
 
+  const handleLogout = async () => {
+    await logout();
+    navigate("/");
+  };
+
   return (
     <div className="todo-list">
+      <div className="header">
+        <button className="logout-button" onClick={handleLogout}>
+          <FaSignOutAlt /> Logout
+        </button>
+      </div>
       <div className="todo-list-container">
         <h1>Gerenciador de Tarefas</h1>
         {!isEditing && (
