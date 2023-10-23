@@ -1,6 +1,5 @@
 import React from 'react';
 import Modal from 'react-modal';
-import successImage from '../../assets/banner.png'; 
 import './SuccessModal.css';
 const SuccessModal = ({ isOpen, closeModal, onClick }) => {
   return (

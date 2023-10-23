@@ -24,6 +24,7 @@ function TodoList() {
   const [isCreatingTask, setIsCreatingTask] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
   const [isDuplicateTaskModalOpen, setDuplicateTaskModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { UserId } = useParams();
   const navigate = useNavigate();
 
@@ -94,6 +95,8 @@ function TodoList() {
     }
   };
   const removeTodo = async (e, id) => {
+    if(isLoading) return;
+    setIsLoading(true);
     e.preventDefault();
     try {
       await deleteTask(id);
@@ -101,6 +104,8 @@ function TodoList() {
       setTodos(removedArr);
     } catch (error) {
       throw error;
+    }finally{
+      setIsLoading(false);
     }
   };
 
