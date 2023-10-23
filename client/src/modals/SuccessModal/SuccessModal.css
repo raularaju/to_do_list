@@ -5,7 +5,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: #fff;
+  background: #161a2b;
   border-radius: 8px;
   padding: 20px;
   text-align: center;
@@ -15,7 +15,7 @@
 }
 
 .success-modal h2 {
-  color: #333;
+  color: #ea87c4;
   font-size: 24px;
   margin-bottom: 16px;
 }
@@ -26,13 +26,17 @@
 }
 
 .success-modal p {
-  color: #666;
+  color: #ffff;
   font-size: 16px;
   margin: 16px 0;
 }
 
 .success-modal button {
-  background: #007BFF;
+  background:linear-gradient(
+    90deg,
+    rgba(93, 12, 255, 1) 0%,
+    rgba(155, 0, 250, 1) 100%
+  );
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -43,7 +47,7 @@
 }
 
 .success-modal button:hover {
-  background: #0056b3;
+  background: rgba(93, 12, 255, 1);
 }
 
 .success-modal button:focus {

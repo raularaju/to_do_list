@@ -77,7 +77,7 @@ function Login() {
             {error && <div className="error">{error}</div>}
           </form>
           <h4>
-            NÃO POSSUI UMA CONTA? <Link to="/signup">CRIE AQUI</Link>
+            NÃO POSSUI UMA CONTA? <Link className="link" to="/signup">CRIE AQUI</Link>
           </h4>
         </div>
       </div>

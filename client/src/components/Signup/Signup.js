@@ -110,7 +110,7 @@ function Signup(props) {
           </div>
         </form>
         <h4>
-          JÁ POSSUI UMA CONTA? <Link to="/">ENTRE AQUI</Link>
+          JÁ POSSUI UMA CONTA? <Link className="link" to="/">ENTRE AQUI</Link>
         </h4>
         <SuccessModal
           isOpen={showSuccessModal}

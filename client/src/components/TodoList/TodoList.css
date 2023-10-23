@@ -3,7 +3,12 @@
 body{
   width: 100%;
   height: 100%;
-  background-image: url(../../assets/pawel-nolbert-4u2U8EO9OzY-unsplash.jpg);
+  background: linear-gradient(
+    90deg,
+    rgb(255, 249, 77) 0%,
+    rgba(155, 0, 250, 1) 100%
+  );;
+   background-image: url(../../assets/milad-fakurian-E8Ufcyxz514-unsplash.jpg); 
 }
 
 
@@ -32,7 +37,7 @@ body{
 }
 
 .Trabalho {
-  background: #0edafc;
+  background: #0590a9;
 }
 
 .Pessoal {
@@ -44,7 +49,7 @@ body{
 }
 
 .Estudo {
-  background: #bb1b9b;
+  background: #621653;
 }
 
 .Outros {
@@ -262,15 +267,15 @@ body{
 }
 
 .completeAllTasks-button {
-  padding: 10px 0px; /* Adjust the padding as needed */
+  padding: 10px 0px; 
   background: #5d0cff;
   color: #fff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
-  margin: 16px auto; /* Center the button horizontally using auto margins */
-  width: 200px; /* Set the desired width */
+  margin: 16px auto; 
+  width: 200px; 
 }
 
 

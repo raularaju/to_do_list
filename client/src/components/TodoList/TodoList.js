@@ -76,24 +76,33 @@ function TodoList() {
     if (!newValue.title || /^\s*$/.test(newValue.title)) {
       return;
     }
-    const response = await updateTask(
-      { title: newValue.title, category: newValue.category },
-      todoId
-    );
-    newValue = { ...newValue, id: response.data.id };
-    setTodos((prev) =>
-      prev.map((item) => (item.id === todoId ? newValue : item))
-    );
+    try {
+      const response = await updateTask(
+        { title: newValue.title, category: newValue.category },
+        todoId
+      );
+
+      newValue = { ...newValue, id: response.data.id };
+      setTodos((prev) =>
+        prev.map((item) => (item.id === todoId ? newValue : item))
+      );
+    } catch (error) {
+      throw error;
+    }
+  };
+  const removeTodo = async (e, id) => {
+    e.preventDefault();
+    try {
+      await deleteTask(id);
+      const removedArr = todos.filter((todo) => todo.id !== id);
+      setTodos(removedArr);
+    } catch (error) {
+      throw error;
+    }
   };
 
-  const removeTodo = async (id) => {
-    await deleteTask(id);
-    const removedArr = [...todos].filter((todo) => todo.id !== id);
-
-    setTodos(removedArr);
-  };
-
-  const completeTodo = async (id) => {
+  const completeTodo = async (e, id) => {
+    e.preventDefault();
     let updatedTodos = [...todos];
     for (let todo of updatedTodos) {
       if (todo.id === id) {
@@ -103,6 +112,8 @@ function TodoList() {
     }
     setTodos(updatedTodos);
   };
+
+  
   const startEditing = () => {
     setIsEditing(true);
   };

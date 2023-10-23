@@ -39,7 +39,7 @@ const Todo = ({
       <div
         className="content"
         key={todo.id}
-        onClick={() => completeTodo(todo.id)}
+        onClick={(e) => {e.preventDefault();completeTodo(e, todo.id)}}
       >
         <div className="content-left">
           <p> {todo.title} </p>
@@ -48,7 +48,7 @@ const Todo = ({
       </div>
       <div className="icons">
         <RiCloseCircleLine
-          onClick={() => removeTodo(todo.id)}
+          onClick={(e) => { removeTodo(e, todo.id)}}
           className="delete-icon"
         />
         <TiEdit
