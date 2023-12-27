@@ -15,7 +15,7 @@
   justify-content: flex-start;
   flex-direction: row;
   align-items: center;
-  background: url(../../assets/keevo_banner.png);
+  background: url(../../assets/meiying-ng-OrwkD-iWgqg-unsplash.jpg);
   background-size: cover;
   background-position: center;
 }
@@ -112,7 +112,7 @@
   }
 }
 .login img {
-  margin-right: 10px; /* Adjust the margin as needed to increase the space */
+  margin-right: 10px; 
   margin-top: 2px;
 }
 
