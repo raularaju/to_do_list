@@ -21,9 +21,11 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
-const UserRouter = require('../src/domains/Task/controllers/index');
-app.use('/task', UserRouter);
+const TaskRouter = require('../src/domains/Task/controllers/index');
+app.use('/task', TaskRouter);
 
+const UserRouter = require('../src/domains/User/controllers/index');
+app.use('/user', UserRouter);
 
 const errorHandler = require('../src/middlewares/errorHandler');
 app.use(errorHandler);

@@ -1,11 +1,10 @@
 import api from "./api";
 
-export const getAllTasks = async () => {
+export const getAllTasksFromUser = async (UserId) => {
   try {
-    const response = await api.get("/task/");
+    const response = await api.get(`/user/${UserId}/tasks`);
     return response;
   } catch (error) {
-    console.error("Error while fetching tasks:", error);
     throw error;
   }
 };
@@ -13,10 +12,8 @@ export const getAllTasks = async () => {
 export const getProductsById = async (id) => {
   try {
     const response = await api.get(`/task/${id}`);
-    console.log(response);
     return response;
   } catch (error) {
-    console.error("Task not found:", error);
     throw error;
   }
 };
@@ -49,3 +46,12 @@ export const deleteTask = async (id) => {
     throw error;
   }
 };
+
+export const markAllTasksAsComplete = async (UserId) => {
+  try{
+    const response = await api.put(`/user/${UserId}/tasks`);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}

@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const database = require('../../../../database/index');
+const User = require('../../User/models/User');
 
 const Task = database.define('Task', {
 
@@ -12,27 +13,32 @@ const Task = database.define('Task', {
     },
 
     title: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(36),
         unique: true,
         allowNull: false
     },
-
-    description: {
-        type: Sequelize.TEXT,
-        allowNull: false
-    },
-    dueDate: {
-        type: Sequelize.DATEONLY,
+    
+    category: {
+        type: Sequelize.ENUM('Casa', 'Trabalho', 'Estudo', 'Pessoal', 'Outros'),
+        defaultValue: 'outros',
         allowNull: false,
     },
-    status: {
-        type: Sequelize.ENUM('to_do', 'in_progress', 'done'),
-        defaultValue: 'to_do',
+    isComplete: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
         allowNull: false   
     }
 
 });
 
+User.hasMany(Task, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+    foreignKey: {
+        allowNull: false
+    }
+});
+Task.belongsTo(User);
 
 
 module.exports = Task;

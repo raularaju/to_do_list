@@ -1,5 +1,6 @@
-const { QueryError } = require("sequelize");
+const { QueryError, UniqueConstraintError } = require("sequelize");
 const Task = require("../models/Task");
+const DuplicateError = require("../../../../errors/DuplicateError");
 
 class TaskService {
   async getById(id) {
@@ -15,8 +16,11 @@ class TaskService {
     try {
       return await Task.create(body);
     } catch (error) {
-      console.log(error);
-      throw new Error(error);
+      if (error instanceof UniqueConstraintError) {
+        throw new DuplicateError("Tarefa já cadastrada");
+      } else {
+        throw new Error(error);
+      }
     }
   }
 
@@ -30,6 +34,7 @@ class TaskService {
     if (task) {
       task.set(body);
       await task.save();
+      return task;
     } else {
       throw new QueryError("Tarefa não encontrada");
     }
@@ -43,6 +48,22 @@ class TaskService {
       throw new QueryError("Tarefa não encontrada");
     }
   }
+
+  async markAllAsComplete(userId) {
+    try {
+      await Task.update(
+        { isComplete: true },
+        {
+          where: {
+            UserId: userId,
+          },
+        }
+      );
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+  
 }
 
 module.exports = new TaskService();

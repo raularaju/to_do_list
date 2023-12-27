@@ -1,0 +1,48 @@
+.duplicateTask-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #161a2b;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  max-width: 300px;
+  width: 100%;
+}
+
+.duplicateTask-modal h2 {
+  color: #ea87c4;
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+
+.duplicateTask-modal p {
+  color: #f2dbdb;
+  font-size: 16px;
+  margin: 16px 0;
+}
+
+.duplicateTask-modal button {
+  background: linear-gradient(
+    90deg,
+    rgba(93, 12, 255, 1) 0%,
+    rgba(155, 0, 250, 1) 100%
+  );
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 12px 24px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 16px;
+}
+
+.duplicateTask-modal button:hover {
+  background:rgba(93, 12, 255, 1);
+}
+
+.duplicateTask-modal button:focus {
+  outline: none;
+}

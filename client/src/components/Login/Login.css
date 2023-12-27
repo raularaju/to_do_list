@@ -1,0 +1,128 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+* > * {
+  font-family: "Poppins", cursive;
+  margin: 0;
+}
+
+.login {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  align-items: center;
+  background: url(../../assets/meiying-ng-OrwkD-iWgqg-unsplash.jpg);
+  background-size: cover;
+  background-position: center;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.col-left {
+  flex: 0.3;
+  padding: 3em 2em; /* Adjust padding as needed */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: #161a2b;
+  border-radius: 5px;
+  margin-left: 200px;
+}
+
+.login h2 {
+  color: rgb(170, 16, 222);
+  text-align: center;
+}
+
+.login span {
+  color: #adb5bd;
+}
+
+.login h4 {
+  color: #fff;
+  text-align: center;
+}
+
+#form {
+  max-width: 320px;
+  width: 100vw;
+  margin: 2em auto;
+}
+
+#form > div {
+  display: block;
+  margin-bottom: 1em;
+}
+
+#form > label {
+  font-weight: bold;
+  margin-right: 10em;
+}
+
+#form > input,
+.btn {
+  border: 1px solid #e9ecef;
+  padding: 0.9em 1em;
+  width: 100%;
+}
+
+#form > input:focus {
+  outline: none;
+}
+
+#form > .btn {
+  border: none;
+  border-radius: 4px 4px 4px 4px;
+  cursor: pointer;
+  outline: none;
+  background: linear-gradient(
+    90deg,
+    rgba(93, 12, 255, 1) 0%,
+    rgba(155, 0, 250, 1) 100%
+  );
+  color: #e9ecef;
+  font-size: 1em;
+  cursor: pointer;
+}
+#form > .btn:hover{
+  background: #7c3dff;
+}
+
+.flex {
+  display: flex;
+  gap: 1em;
+}
+
+.error {
+  color: red;
+  font-size: 0.8em;
+  margin-top: 0.5em;
+}
+
+@media screen and (min-width: 860px) {
+  .login .col-right img {
+    display: initial;
+  }
+}
+.login img {
+  margin-right: 10px; 
+  margin-top: 2px;
+}
+
+.login input {
+  align-items: center;
+}
+.link {
+  color: rgb(28, 81, 255);
+  text-decoration: none;
+}
+.link:hover {
+  text-decoration: underline;
+} 
