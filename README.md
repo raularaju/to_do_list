@@ -1,5 +1,6 @@
 # To do List 
 Sistema web de criação e gerenciamento de tarefas diárias construído com React e NodeJS.
+Uma versão mais simples dessa aplicação está disponível em: https://raularaju.github.io/to_do_list_simple/
 \
 \
 ![image](https://github.com/raularaju/to_do_list/assets/94451427/00434175-d0f4-41a5-97da-811096fe7647)
